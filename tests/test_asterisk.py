@@ -13,7 +13,6 @@ if os.path.isdir(DIR):
 import unittest
 import trytond.tests.test_tryton
 from trytond.tests.test_tryton import test_view, test_depends
-from trytond.transaction import Transaction
 
 
 class AsteriskTestCase(unittest.TestCase):
@@ -42,6 +41,7 @@ def suite():
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
         AsteriskTestCase))
     return suite
+
 
 if __name__ == '__main__':
     unittest.TextTestRunner(verbosity=2).run(suite())
