@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!-- This file is part asterisk module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<form string="Asterisk">
+    <label name="name"/>
+    <field name="name"/>
+    <label name="ip_address"/>
+    <field name="ip_address"/>
+    <label name="port"/>
+    <field name="port"/>
+    <separator string="Prefix" colspan="4" id="prefix"/>
+    <label name="out_prefix"/>
+    <field name="out_prefix"/>
+    <label name="national_prefix"/>
+    <field name="national_prefix"/>
+    <label name="international_prefix"/>
+    <field name="international_prefix"/>
+    <label name="country_prefix"/>
+    <field name="country_prefix"/>
+    <label name="national_format_allowed"/>
+    <field name="national_format_allowed"/>
+    <separator string="AMI" colspan="4" id="ami"/>
+    <label name="login"/>
+    <field name="login"/>
+    <label name="password"/>
+    <field name="password"/>
+    <label name="context"/>
+    <field name="context"/>
+    <label name="wait_time"/>
+    <field name="wait_time"/>
+    <label name="extension_priority"/>
+    <field name="extension_priority"/>
+    <label name="alert_info"/>
+    <field name="alert_info"/>
+</form>
