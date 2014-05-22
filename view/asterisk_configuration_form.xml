@@ -23,7 +23,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
     <label name="login"/>
     <field name="login"/>
     <label name="password"/>
-    <field name="password"/>
+    <field name="password" widget="sha"/>
     <label name="context"/>
     <field name="context"/>
     <label name="wait_time"/>
