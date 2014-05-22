@@ -39,7 +39,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
                 id="menu_asterisk_configuration"
                 name="Asterisk Configuration"
                 parent="menu_asterisk"
-                action="act_asterisk_configuration_form"/>
+                action="act_asterisk_configuration_form" icon="tryton-list"/>
 
         <record model="ir.model.access" id="access_asterisk_asterisk_administration">
             <field name="model" search="[('model', '=', 'asterisk.configuration.company')]"/>
