@@ -20,7 +20,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
             required=True,
             help="IPv4 address or DNS name of the Asterisk server."),
         'get_fields', setter='set_fields')
-    port = fields.Function(fields.Char('Port', required=True,
+    port = fields.Function(fields.Integer('Port', required=True,
             help="TCP port on which the Asterisk Manager Interface listens. "
             "Defined in /etc/asterisk/manager.conf on Asterisk."),
         'get_fields', setter='set_fields')
@@ -134,9 +134,6 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                 return False
         return True
 
-    def _only_digits_port(self):
-        return self._only_digits('port', False)
-
     def _only_digits_out_prefix(self):
         return self._only_digits('out_prefix', True)
 
@@ -165,7 +162,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
     def _check_port(self):
         port_to_check = self.read([self.id], ['port'])[0]['port']
-        if int(port_to_check) > 65535 or int(port_to_check) < 1:
+        if int(port_to_check) > 65535 or port_to_check < 1:
             return False
         return True
 
@@ -173,7 +170,6 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
     def __setup__(cls):
         super(AsteriskConfiguration, cls).__setup__()
         cls._constraints += [
-            ('_only_digits_port', 'port'),
             ('_only_digits_out_prefix', 'out_prefix'),
             ('_only_digits_country_prefix', 'country_prefix'),
             ('_only_digits_national_prefix', 'national_prefix'),
@@ -220,7 +216,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
     @staticmethod
     def default_port():
-        return '5038'
+        return 5038
 
     @staticmethod
     def default_out_prefix():
@@ -420,7 +416,7 @@ class AsteriskConfigurationCompany(ModelSQL, ModelView):
     company = fields.Many2One('company.company', 'Company', readonly=True)
     name = fields.Char('Asterisk server name')
     ip_address = fields.Char('Asterisk IP addr. or DNS')
-    port = fields.Char('Port')
+    port = fields.Integer('Port')
     out_prefix = fields.Char('Out prefix')
     national_prefix = fields.Char('National prefix')
     international_prefix = fields.Char('International prefix')
