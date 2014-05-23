@@ -105,22 +105,21 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
     @classmethod
     def set_fields(cls, configurations, name, value):
-        if value:
-            ConfigurationCompany = Pool().get('asterisk.configuration.company')
-            company_id = Transaction().context.get('company')
-            if company_id:
-                configuration = ConfigurationCompany.search([
-                        ('company', '=', company_id),
-                        ], limit=1)
-                if not configuration:
-                    ConfigurationCompany.create([{
-                            'company': company_id,
-                            name: value,
-                    }])
-                else:
-                    ConfigurationCompany.write([configuration[0]], {
-                            name: value
-                            })
+        ConfigurationCompany = Pool().get('asterisk.configuration.company')
+        company_id = Transaction().context.get('company')
+        if company_id:
+            configuration = ConfigurationCompany.search([
+                    ('company', '=', company_id),
+                    ], limit=1)
+            if not configuration:
+                ConfigurationCompany.create([{
+                        'company': company_id,
+                        name: value,
+                }])
+            else:
+                ConfigurationCompany.write([configuration[0]], {
+                        name: value
+                        })
 
     def _only_digits(self, prefix, can_be_empty):
         prefix_to_check = self.read([self.id], [prefix])[0]
@@ -217,14 +216,6 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
     @staticmethod
     def default_port():
         return 5038
-
-    @staticmethod
-    def default_out_prefix():
-        return '0'
-
-    @staticmethod
-    def default_national_prefix():
-        return '0'
 
     @staticmethod
     def default_international_prefix():
