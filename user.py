@@ -15,6 +15,7 @@ class User():
     callerid = fields.Char('Caller ID',
         help="Caller ID used for the calls initiated by this user.")
     asterisk_chan_type = fields.Selection([
+            (None, ''),
             ('SIP', 'SIP'),
             ('IAX2', 'IAX2'),
             ('DAHDI', 'DAHDI'),
