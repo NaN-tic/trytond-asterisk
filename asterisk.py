@@ -101,6 +101,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                 for field_name in names:
                     value = getattr(conf, field_name)
                     res[field_name] = {conf_id: value}
+        else:
+            cls.raise_user_error('not_company')
         return res
 
     @classmethod
@@ -179,39 +181,40 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
             ('_check_port', 'port'),
         ]
         cls._error_messages.update({
+                'not_company': "You have not got the default company configured.",
                 'out_prefix': "Use only digits for the 'Out prefix' or leave "
-                "it empty.",
+                    "it empty.",
                 'country_prefix': "Use only digits for the 'Country prefix'.",
                 'national_prefix': "Use only digits for the 'National prefix' "
-                "or leave it empty.",
+                    "or leave it empty.",
                 'international_prefix': "Use only digits for 'International "
-                "prefix'.",
+                    "prefix'.",
                 'wait_time': "You should enter a 'Wait time' value between 1 "
-                "and 120 seconds.",
+                    "and 120 seconds.",
                 'extension_priority': "The 'Extension priority' must be a "
-                "positive value.",
+                    "positive value.",
                 'port': 'TCP ports range from 1 to 65535.',
                 'error': 'Error',
                 'invalid_phone': 'Invalid phone number',
                 'invalid_international_format': "The phone number is not "
-                "written in a valid international format. Example of valid "
-                "international format: +33 1 41 98 12 42.",
+                    "written in a valid international format. Example of valid "
+                    "international format: +33 1 41 98 12 42.",
                 'invalid_national_format': "The phone number is not written "
-                "in a valid national format.",
+                    "in a valid national format.",
                 'invalid_format': "The phone number is not written in a valid "
-                "format.",
+                    "format.",
                 'no_phone_number': "There is no phone number.",
                 'no_asterisk_configuration': "Not available Asterisk Server "
-                "configured for the current user.",
+                    "configured for the current user.",
                 'no_channel_type': "There isn't a channel type configured for "
-                "the current user",
+                    "the current user",
                 'no_internal_phone': "There isn't a internal phone number "
-                "configured for the current user",
+                    "configured for the current user",
                 'cant_resolve_dns': "Can't resolve the DNS of the Asterisk "
-                "server:",
+                    "server:",
                 'connection_failed': "The connection from Tryton to the "
-                "Asterisk server has failed. Please check the configuration "
-                "on Tryton and Asterisk.",
+                    "Asterisk server has failed. Please check the configuration "
+                    "on Tryton and Asterisk.",
                 })
 
     @staticmethod
