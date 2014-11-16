@@ -7,6 +7,7 @@ from trytond.transaction import Transaction
 import logging
 import socket
 import unicodedata
+import time
 
 __all__ = [ 'AsteriskConfiguration', 'AsteriskConfigurationCompany']
 
@@ -401,6 +402,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                         str(ast_server.alert_info))
                 sock.send('Priority: %s\r\n\r\n' % \
                     str(ast_server.extension_priority))
+                time.sleep(1)
                 sock.send('Action: Logoff\r\n\r\n')
                 sock.close()
             except:
