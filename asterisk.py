@@ -355,6 +355,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
         if not user.internal_number:
             cls.raise_user_error(error='error',
                 error_description='no_internal_phone')
+        internal_numbers = user.internal_number.replace(" ", "").split(",")
 
         # The user should also have a CallerID, but in Spain that will
         # be the name of the address that we call.
@@ -367,8 +368,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
         # Convert the phone number in the format that will be sent to Asterisk
         ast_number = cls.reformat_number(tryton_number, ast_server)
-        logger.info('User dialing: channel = %s/%s - Callerid = %s' % \
-            (user.asterisk_chan_type, user.internal_number, user.callerid))
+        logger.info('User dialing: channel(s) = %s/%s - Callerid = %s' % \
+            (user.asterisk_chan_type, internal_numbers, user.callerid))
         logger.info('Asterisk server = %s:%s' % \
             (ast_server.ip_address, ast_server.port))
 
@@ -383,35 +384,37 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                 error_description='cant_resolve_dns')
         for result in res:
             af, socktype, proto, _, sockaddr = result
-            try:
-                sock = socket.socket(af, socktype, proto)
-                sock.connect(sockaddr)
-                sock.send('Action: login\r\n')
-                sock.send('Events: off\r\n')
-                sock.send('Username: %s\r\n' % str(ast_server.login))
-                sock.send('Secret: %s\r\n\r\n' % str(ast_server.password))
-                sock.send('Action: originate\r\n')
-                sock.send('Channel: %s/%s\r\n' % (str(user.asterisk_chan_type),
-                    str(user.internal_number)))
-                sock.send('Timeout: %s\r\n' % str(ast_server.wait_time*1000))
-                sock.send('CallerId: %s\r\n' % cls.unaccent(callerid))
-                sock.send('Exten: %s\r\n' % str(ast_number))
-                sock.send('Context: %s\r\n' % str(ast_server.context))
-                if ast_server.alert_info and user.asterisk_chan_type == 'SIP':
-                    sock.send('Variable: SIPAddHeader=Alert-Info: %s\r\n' % \
-                        str(ast_server.alert_info))
-                sock.send('Priority: %s\r\n\r\n' % \
-                    str(ast_server.extension_priority))
-                time.sleep(1)
-                sock.send('Action: Logoff\r\n\r\n')
-                sock.close()
-            except:
-                logger.debug("Click2dial failed: unable to connect to "
-                    "Asterisk")
-                cls.raise_user_error(error='error',
-                    error_description='connection_failed')
-            logger.info("Asterisk Click2Dial from %s to %s" % \
-                (user.internal_number, ast_number))
+            for internal_number in internal_numbers:
+                try:
+                    sock = socket.socket(af, socktype, proto)
+                    sock.connect(sockaddr)
+                    sock.send('Action: login\r\n')
+                    sock.send('Events: off\r\n')
+                    sock.send('Username: %s\r\n' % str(ast_server.login))
+                    sock.send('Secret: %s\r\n\r\n' % str(ast_server.password))
+                    sock.send('Action: originate\r\n')
+                    sock.send('Channel: %s/%s\r\n' % (str(user.asterisk_chan_type),
+                        str(internal_number)))
+                    sock.send('Timeout: %s\r\n' % str(ast_server.wait_time*1000))
+                    sock.send('CallerId: %s\r\n' % cls.unaccent(callerid))
+                    sock.send('Exten: %s\r\n' % str(ast_number))
+                    sock.send('Context: %s\r\n' % str(ast_server.context))
+                    if ast_server.alert_info and user.asterisk_chan_type == 'SIP':
+                        sock.send('Variable: SIPAddHeader=Alert-Info: %s\r\n' % \
+                            str(ast_server.alert_info))
+                    sock.send('Priority: %s\r\n\r\n' % \
+                        str(ast_server.extension_priority))
+                    time.sleep(1)
+                    sock.send('Action: Logoff\r\n\r\n')
+                    sock.close()
+                    logger.info("Asterisk Click2Dial from %s to %s" % \
+                        (internal_number, ast_number))
+                    break
+                except:
+                    logger.debug("Click2dial failed: unable to connect to "
+                        "Asterisk")
+                    cls.raise_user_error(error='error',
+                        error_description='connection_failed')
 
 
 class AsteriskConfigurationCompany(ModelSQL, ModelView):

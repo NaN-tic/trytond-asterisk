@@ -11,7 +11,9 @@ __metaclass__ = PoolMeta
 class User():
     __name__ = "res.user"
     internal_number = fields.Char('Internal number',
-        help="User's internal phone number.")
+        help="User's internal phone number. You can deffine more than one "
+            "separetd by coma ','. It try to send the call to each number "
+            "until you pick up one of defined phone or arrive the end.")
     callerid = fields.Char('Caller ID',
         help="Caller ID used for the calls initiated by this user.")
     asterisk_chan_type = fields.Selection([
