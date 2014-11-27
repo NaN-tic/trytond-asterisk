@@ -392,6 +392,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     sock.send('Events: off\r\n')
                     sock.send('Username: %s\r\n' % str(ast_server.login))
                     sock.send('Secret: %s\r\n\r\n' % str(ast_server.password))
+                    time.sleep(1)
+                    response_login = sock.recv(1024)
                     sock.send('Action: originate\r\n')
                     sock.send('Channel: %s/%s\r\n' % (str(user.asterisk_chan_type),
                         str(internal_number)))
@@ -405,14 +407,20 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     sock.send('Priority: %s\r\n\r\n' % \
                         str(ast_server.extension_priority))
                     time.sleep(1)
+                    response_originate = sock.recv(1024)
                     sock.send('Action: Logoff\r\n\r\n')
+                    response_logoff = sock.recv(1024)
                     sock.close()
-                    logger.info("Asterisk Click2Dial from %s to %s" % \
-                        (internal_number, ast_number))
-                    break
+                    if "Success" in response_originate:
+                        logger.info("Asterisk Click2Dial from %s to %s success" % \
+                            (internal_number, ast_number))
+                        break
+                    else:
+                        logger.info("Asterisk Click2Dial from %s to %s failed:\n%s" % \
+                            (internal_number, ast_number, response_originate))
                 except:
-                    logger.debug("Click2dial failed: unable to connect to "
-                        "Asterisk")
+                    logger.debug("Asterisk Click2dial failed: unable to connect to "
+                        "Asterisk server")
                     cls.raise_user_error(error='error',
                         error_description='connection_failed')
 
