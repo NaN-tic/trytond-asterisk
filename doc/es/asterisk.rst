@@ -8,10 +8,10 @@ Instance) para cada empresa y llamar directamente des de la ficha de cliente,
 usando la centralita que tengamos, siempre y cuando esta sea Asterisk y tenga 
 conexión AMI configurada.
 
-2. Crear la conexión. Para ello nos vamos al menú "Administración/ Asterisk/ 
+ * Crear la conexión: Para ello nos vamos al menú "Administración/ Asterisk/ 
    Asterisk Configuración".
    Aquí rellenemos todos los valores que tengamos de la centralita. El 
-**Nombre** 
+   **Nombre** 
    es puramente informativo. Lo demás depende de como se haya configurado la 
    centralita Asterisk.
 
