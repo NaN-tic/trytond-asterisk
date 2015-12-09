@@ -1,7 +1,7 @@
 #This file is part asterisk module for Tryton.
 #The COPYRIGHT file at the top level of this repository contains
 #the full copyright notices and license terms.
-from trytond.model import ModelView, ModelSQL, ModelSingleton, fields
+from trytond.model import ModelView, ModelSQL, ModelSingleton, fields, Unique
 from trytond.pool import Pool
 from trytond.transaction import Transaction
 import logging
@@ -9,7 +9,7 @@ import socket
 import unicodedata
 import time
 
-__all__ = [ 'AsteriskConfiguration', 'AsteriskConfigurationCompany']
+__all__ = ['AsteriskConfiguration', 'AsteriskConfigurationCompany']
 
 
 class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
@@ -126,16 +126,14 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                             })
 
     def _only_digits(self, prefix, can_be_empty):
-        prefix_to_check = self.read([self.id], [prefix])[0]
-        if prefix_to_check:
-            prefix_to_check = prefix_to_check[prefix]
+
+        prefix_to_check = getattr(self, prefix)
         if not prefix_to_check:
             if not can_be_empty:
-                return False
+                self.raise_user_error(prefix)
         else:
             if not prefix_to_check.isdigit():
-                return False
-        return True
+                self.raise_user_error(prefix)
 
     def _only_digits_out_prefix(self):
         return self._only_digits('out_prefix', True)
@@ -150,37 +148,30 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
         return self._only_digits('international_prefix', False)
 
     def _check_wait_time(self):
-        wait_time_to_check = self.read([self.id], ['wait_time'])[0]\
-            ['wait_time']
-        if wait_time_to_check < 1 or wait_time_to_check > 120:
-            return False
-        return True
+        if self.wait_time < 1 or self.wait_time > 120:
+            self.raise_user_error('wait_time')
 
     def _check_extension_priority(self):
-        extension_priority_to_check = self.read([self.id],
-            ['extension_priority'])[0]['extension_priority']
-        if extension_priority_to_check < 1:
-            return False
-        return True
+        if self.extension_priority < 1:
+            self.raise_user_error('extension_priority')
 
     def _check_port(self):
-        port_to_check = self.read([self.id], ['port'])[0]['port']
-        if int(port_to_check) > 65535 or port_to_check < 1:
-            return False
-        return True
+        if int(self.port) > 65535 or self.port < 1:
+            self.raise_user_error('port')
+
+    def validate(cls, records):
+        for record in records:
+            record._only_digits_out_prefix()
+            record._only_digits_country_prefix()
+            record._only_digits_national_prefix()
+            record._only_digits_international_prefix()
+            record._check_wait_time()
+            record._check_extension_priority()
+            record._check_port()
 
     @classmethod
     def __setup__(cls):
         super(AsteriskConfiguration, cls).__setup__()
-        cls._constraints += [
-            ('_only_digits_out_prefix', 'out_prefix'),
-            ('_only_digits_country_prefix', 'country_prefix'),
-            ('_only_digits_national_prefix', 'national_prefix'),
-            ('_only_digits_international_prefix', 'international_prefix'),
-            ('_check_wait_time', 'wait_time'),
-            ('_check_extension_priority', 'extension_priority'),
-            ('_check_port', 'port'),
-        ]
         cls._error_messages.update({
                 'not_company': "You have not got the default company configured.",
                 'out_prefix': "Use only digits for the 'Out prefix' or leave "
@@ -280,8 +271,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
         # International format
         if tmp_number[0] == '+':
             # Remove the starting '+' of the number
-            tmp_number = tmp_number.replace('+','')
-            logger.debug('Number after removal of special char = %s' % \
+            tmp_number = tmp_number.replace('+', '')
+            logger.debug('Number after removal of special char = %s' %
                 tmp_number)
 
             # At this stage, 'tmp_number' should only contain digits
@@ -317,7 +308,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                 error_description='invalid_international_format')
         # Add 'out prefix' to all numbers
         tmp_number = out_prefix + tmp_number
-        logger.debug('Out prefix = %s - Number to be sent to Asterisk = %s' % \
+        logger.debug('Out prefix = %s - Number to be sent to Asterisk = %s' %
             (out_prefix, tmp_number))
         return tmp_number
 
@@ -368,9 +359,9 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
         # Convert the phone number in the format that will be sent to Asterisk
         ast_number = cls.reformat_number(tryton_number, ast_server)
-        logger.info('User dialing: channel(s) = %s/%s - Callerid = %s' % \
+        logger.info('User dialing: channel(s) = %s/%s - Callerid = %s' %
             (user.asterisk_chan_type, internal_numbers, user.callerid))
-        logger.info('Asterisk server = %s:%s' % \
+        logger.info('Asterisk server = %s:%s' %
             (ast_server.ip_address, ast_server.port))
 
         # Connect to the Asterisk Manager Interface, using IPv6-ready code
@@ -378,7 +369,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
             res = socket.getaddrinfo(ast_server.ip_address, ast_server.port,
                 socket.AF_UNSPEC, socket.SOCK_STREAM)
         except:
-            logger.error("Can't resolve the DNS of the Asterisk server : %s" %\
+            logger.error("Can't resolve the DNS of the Asterisk server : %s" %
                 str(ast_server.ip_address))
             cls.raise_user_error(error='error',
                 error_description='cant_resolve_dns')
@@ -395,16 +386,18 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     time.sleep(1)
                     response_login = sock.recv(1024)
                     sock.send('Action: originate\r\n')
-                    sock.send('Channel: %s/%s\r\n' % (str(user.asterisk_chan_type),
-                        str(internal_number)))
+                    sock.send('Channel: %s/%s\r\n' % (
+                            str(user.asterisk_chan_type),
+                            str(internal_number)))
                     sock.send('Timeout: %s\r\n' % str(ast_server.wait_time*1000))
                     sock.send('CallerId: %s\r\n' % cls.unaccent(callerid))
                     sock.send('Exten: %s\r\n' % str(ast_number))
                     sock.send('Context: %s\r\n' % str(ast_server.context))
-                    if ast_server.alert_info and user.asterisk_chan_type == 'SIP':
-                        sock.send('Variable: SIPAddHeader=Alert-Info: %s\r\n' % \
+                    if (ast_server.alert_info and
+                            user.asterisk_chan_type == 'SIP'):
+                        sock.send('Variable: SIPAddHeader=Alert-Info: %s\r\n' %
                             str(ast_server.alert_info))
-                    sock.send('Priority: %s\r\n\r\n' % \
+                    sock.send('Priority: %s\r\n\r\n' %
                         str(ast_server.extension_priority))
                     time.sleep(1)
                     response_originate = sock.recv(1024)
@@ -412,15 +405,16 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     response_logoff = sock.recv(1024)
                     sock.close()
                     if "Success" in response_originate:
-                        logger.info("Asterisk Click2Dial from %s to %s success" % \
-                            (internal_number, ast_number))
+                        logger.info("Asterisk Click2Dial from %s to %s "
+                            "success" % (internal_number, ast_number))
                         break
                     else:
-                        logger.info("Asterisk Click2Dial from %s to %s failed:\n%s" % \
-                            (internal_number, ast_number, response_originate))
+                        logger.info("Asterisk Click2Dial from %s to %s failed:"
+                            "\n%s" % (internal_number, ast_number,
+                                response_originate))
                 except:
-                    logger.debug("Asterisk Click2dial failed: unable to connect to "
-                        "Asterisk server")
+                    logger.debug("Asterisk Click2dial failed: unable to "
+                        "connect to Asterisk server")
                     cls.raise_user_error(error='error',
                         error_description='connection_failed')
 
@@ -449,7 +443,8 @@ class AsteriskConfigurationCompany(ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(AsteriskConfigurationCompany, cls).__setup__()
+        t = cls.__table__()
         cls._sql_constraints += [
-            ('company_uniq', 'UNIQUE(company)',
+            ('company_uniq', Unique(t, t.company),
                 'There is already one configuration for this company.'),
             ]
