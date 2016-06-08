@@ -1,0 +1,494 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:asterisk.configuration.company:"
+msgid "There is already one configuration for this company."
+msgstr "Ja existeix una configuració per aquesta empresa."
+
+msgctxt "error:asterisk.configuration:"
+msgid "Can't resolve the DNS of the Asterisk server:"
+msgstr "No es pot resoldre les DNS del servidor Asterisk:"
+
+msgctxt "error:asterisk.configuration:"
+msgid "Error"
+msgstr "Error"
+
+msgctxt "error:asterisk.configuration:"
+msgid "Invalid phone number"
+msgstr "El número de telèfon no és correcte."
+
+msgctxt "error:asterisk.configuration:"
+msgid "Not available Asterisk Server configured for the current user."
+msgstr "L'actual usuari no té el servidor d'Asterisk configurat."
+
+msgctxt "error:asterisk.configuration:"
+msgid "TCP ports range from 1 to 65535."
+msgstr "Rang de ports TCP de 1 a 65535."
+
+msgctxt "error:asterisk.configuration:"
+msgid "The 'Extension priority' must be a positive value."
+msgstr "La prioritat de l'extensió ha de ser un valor positiu."
+
+msgctxt "error:asterisk.configuration:"
+msgid ""
+"The connection from Tryton to the Asterisk server has failed. Please check "
+"the configuration on Tryton and Asterisk."
+msgstr ""
+"La connexió entre Tryton i el servidor d'Asterisk ha fallat. Revisa la "
+"configuració de Tryton i Asterisk."
+
+msgctxt "error:asterisk.configuration:"
+msgid "The phone number is not written in a valid format."
+msgstr "El número de telèfon no és un format vàlid."
+
+msgctxt "error:asterisk.configuration:"
+msgid ""
+"The phone number is not written in a valid international format. Example of "
+"valid international format: +33 1 41 98 12 42."
+msgstr ""
+"El número de telèfon no és un format internacional. Exemple de format vàlid:"
+" +33 1 41 98 12 42."
+
+msgctxt "error:asterisk.configuration:"
+msgid "The phone number is not written in a valid national format."
+msgstr "El número de telèfon no és un format nacional."
+
+msgctxt "error:asterisk.configuration:"
+msgid "There is no phone number."
+msgstr "No hi ha un número de telèfon."
+
+msgctxt "error:asterisk.configuration:"
+msgid "There isn't a channel type configured for the current user"
+msgstr "L'actual usuari no té cap tipus de canal configurat."
+
+msgctxt "error:asterisk.configuration:"
+msgid "There isn't a internal phone number configured for the current user"
+msgstr "L'actual usuari no té cap número de telèfon internacional configurat."
+
+msgctxt "error:asterisk.configuration:"
+msgid "Use only digits for 'International prefix'."
+msgstr "Utilitza dígits per prefixes internacionals."
+
+msgctxt "error:asterisk.configuration:"
+msgid "Use only digits for the 'Country prefix'."
+msgstr "Utilitza dígits per prefixes de país."
+
+msgctxt "error:asterisk.configuration:"
+msgid "Use only digits for the 'National prefix' or leave it empty."
+msgstr "Utilitza dígits per prefixes nacionals o deixa'ls buit."
+
+msgctxt "error:asterisk.configuration:"
+msgid "Use only digits for the 'Out prefix' or leave it empty."
+msgstr "Utilitza dígits pel prefix exterior o deixa'l buit."
+
+msgctxt "error:asterisk.configuration:"
+msgid "You have not got the default company configured."
+msgstr "No disposa configurat l'empresa per defecte."
+
+msgctxt "error:asterisk.configuration:"
+msgid "You should enter a 'Wait time' value between 1 and 120 seconds."
+msgstr "Utilitza un valor entre 1 a 120 segons pel temps en espera."
+
+msgctxt "field:asterisk.configuration,alert_info:"
+msgid "Alert-Info SIP header"
+msgstr "Capçalera Aleta-Info SIP"
+
+msgctxt "field:asterisk.configuration,context:"
+msgid "Dialplan context"
+msgstr "Context pla de marcat "
+
+msgctxt "field:asterisk.configuration,country_prefix:"
+msgid "My country prefix"
+msgstr "El prefix meu país"
+
+msgctxt "field:asterisk.configuration,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:asterisk.configuration,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:asterisk.configuration,extension_priority:"
+msgid "Extension priority"
+msgstr "Prioritat extensió"
+
+msgctxt "field:asterisk.configuration,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:asterisk.configuration,international_prefix:"
+msgid "International prefix"
+msgstr "Prefijo internacional"
+
+msgctxt "field:asterisk.configuration,ip_address:"
+msgid "Asterisk IP addr. or DNS"
+msgstr "Adreça IP Asterisk o DNS"
+
+msgctxt "field:asterisk.configuration,login:"
+msgid "AMI login"
+msgstr "Identificador AMI"
+
+msgctxt "field:asterisk.configuration,name:"
+msgid "Asterisk server name"
+msgstr "Nom del servidor Asterisk"
+
+msgctxt "field:asterisk.configuration,national_format_allowed:"
+msgid "National format allowed?"
+msgstr "Permet formats nacionals?"
+
+msgctxt "field:asterisk.configuration,national_prefix:"
+msgid "National prefix"
+msgstr "Prefix nacional"
+
+msgctxt "field:asterisk.configuration,out_prefix:"
+msgid "Out prefix"
+msgstr "Prefix exterior"
+
+msgctxt "field:asterisk.configuration,password:"
+msgid "AMI password"
+msgstr "Contrasenya AMI"
+
+msgctxt "field:asterisk.configuration,port:"
+msgid "Port"
+msgstr "Port"
+
+msgctxt "field:asterisk.configuration,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:asterisk.configuration,wait_time:"
+msgid "Wait time (sec)"
+msgstr "Temps en espera (segons)"
+
+msgctxt "field:asterisk.configuration,write_date:"
+msgid "Write Date"
+msgstr "Usuari creació"
+
+msgctxt "field:asterisk.configuration,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:asterisk.configuration.company,alert_info:"
+msgid "Alert-Info SIP header"
+msgstr "Capçalera Aleta-Info SIP"
+
+msgctxt "field:asterisk.configuration.company,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:asterisk.configuration.company,context:"
+msgid "Dialplan context"
+msgstr "Context pla de marcat "
+
+msgctxt "field:asterisk.configuration.company,country_prefix:"
+msgid "My country prefix"
+msgstr "El prefix meu país"
+
+msgctxt "field:asterisk.configuration.company,create_date:"
+msgid "Create Date"
+msgstr "Data creació"
+
+msgctxt "field:asterisk.configuration.company,create_uid:"
+msgid "Create User"
+msgstr "Usuari creació"
+
+msgctxt "field:asterisk.configuration.company,extension_priority:"
+msgid "Extension priority"
+msgstr "Prioritat extensió"
+
+msgctxt "field:asterisk.configuration.company,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:asterisk.configuration.company,international_prefix:"
+msgid "International prefix"
+msgstr "Prefijo internacional"
+
+msgctxt "field:asterisk.configuration.company,ip_address:"
+msgid "Asterisk IP addr. or DNS"
+msgstr "Adreça IP Asterisk o DNS"
+
+msgctxt "field:asterisk.configuration.company,login:"
+msgid "AMI login"
+msgstr "Identificador AMI"
+
+msgctxt "field:asterisk.configuration.company,name:"
+msgid "Asterisk server name"
+msgstr "Nom del servidor Asterisk"
+
+msgctxt "field:asterisk.configuration.company,national_format_allowed:"
+msgid "National format allowed?"
+msgstr "Permet formats nacionals?"
+
+msgctxt "field:asterisk.configuration.company,national_prefix:"
+msgid "National prefix"
+msgstr "Prefix nacional"
+
+msgctxt "field:asterisk.configuration.company,out_prefix:"
+msgid "Out prefix"
+msgstr "Prefix exterior"
+
+msgctxt "field:asterisk.configuration.company,password:"
+msgid "AMI password"
+msgstr "Contrasenya AMI"
+
+msgctxt "field:asterisk.configuration.company,port:"
+msgid "Port"
+msgstr "Port"
+
+msgctxt "field:asterisk.configuration.company,rec_name:"
+msgid "Name"
+msgstr "Nom"
+
+msgctxt "field:asterisk.configuration.company,wait_time:"
+msgid "Wait time (sec)"
+msgstr "Temps en espera (segons)"
+
+msgctxt "field:asterisk.configuration.company,write_date:"
+msgid "Write Date"
+msgstr "Usuari creació"
+
+msgctxt "field:asterisk.configuration.company,write_uid:"
+msgid "Write User"
+msgstr "Usuari modificació"
+
+msgctxt "field:res.user,asterisk_chan_type:"
+msgid "Asterisk channel type"
+msgstr "Tipus canal Asterisk"
+
+msgctxt "field:res.user,asterisk_server:"
+msgid "Asterisk server"
+msgstr "Servidor Asterisk"
+
+msgctxt "field:res.user,callerid:"
+msgid "Caller ID"
+msgstr "ID trucada"
+
+msgctxt "field:res.user,internal_number:"
+msgid "Internal number"
+msgstr "Número intern"
+
+msgctxt "help:asterisk.configuration,alert_info:"
+msgid ""
+"Set Alert-Info header in SIP request to user's IP Phone. If empty, the "
+"Alert-Info header will not be added. You can use it to have a special ring "
+"tone for click2dial, for example you could choose a silent ring tone."
+msgstr ""
+"Afegir capçalera info-alerta en les sol·licituds de telèfons SIP. Si es "
+"troba buit, no s'afegirà cap capçalera. Cal utilitzar un to especial de "
+"click2dial, per exemple, un to silenciós."
+
+msgctxt "help:asterisk.configuration,context:"
+msgid ""
+"Asterisk dialplan context from which the calls will be made. Refer to "
+"/etc/asterisk/extensions.conf on your Asterisk server."
+msgstr ""
+"Context pla de marcat Asterisk per les trucades que es realitzaràn. Cal "
+"actualitzar també a /etc/asterisk/extensions.conf del servidor Asterisk."
+
+msgctxt "help:asterisk.configuration,country_prefix:"
+msgid ""
+"Prefix to add to make international phone calls (don't include the 'out "
+"prefix'). For example, the phone prefix for France is '33'. If the phone "
+"number to dial starts with the 'My country prefix', Tryton will remove the "
+"country prefix from the phone number and add the 'out prefix' followed by "
+"the 'national prefix'. If the phone number to dial doesn't start with the "
+"'My country prefix', Tryton will add the 'out prefix' followed by the "
+"'international prefix'."
+msgstr ""
+"Prefix per afegir a les trucades internacionals (no incloure el \"prefix "
+"exterior\"). Per exemple, el prefix de França és '33'. Si el número de "
+"telèfon comença amb el prefix \"Prefix meu país\", Tryton eliminarà el "
+"prefix del país del número de telèfon i l'afegirà a \"prefix exterior\" "
+"relacionat amb el \"prefix internacional\". Si el número de telèfon no "
+"comença amb \"Prefix meu país\", Tryton afegeix \"prefix exterior\" "
+"conjuntament amb \"prefix internacional\"."
+
+msgctxt "help:asterisk.configuration,extension_priority:"
+msgid ""
+"Priority of the extension in the Asterisk dialplan. Refer to "
+"/etc/asterisk/extensions.conf on your Asterisk server."
+msgstr ""
+"Prioritat de la extensió del pla de marcat d'Asterisk. Cal actualitzar també"
+" a /etc/asterisk/extensions.conf del servidor Asterisk."
+
+msgctxt "help:asterisk.configuration,international_prefix:"
+msgid ""
+"Prefix to add to make international phone calls (don't include the 'out "
+"prefix'). For example, in France, the International prefix is '00'."
+msgstr ""
+"Prefix per afegir a les trucades internacionals (no incloure el \"prefix "
+"exterior\"). Per exemple, a França, el prefix internacional és \"00\"."
+
+msgctxt "help:asterisk.configuration,ip_address:"
+msgid "IPv4 address or DNS name of the Asterisk server."
+msgstr "Adreça IPv4 o nom DNS del servidor Asterisk."
+
+msgctxt "help:asterisk.configuration,login:"
+msgid ""
+"Login that Tryton will use to communicate with the Asterisk Manager "
+"Interface. Refer to /etc/asterisk/manager.conf on your Asterisk server."
+msgstr ""
+"Connectar-se a Tryton quan s'utilitza una interficie de gestió d'Asterisk. "
+"Cal actualitzar també a /etc/asterisk/manager.conf del servidor Asterisk."
+
+msgctxt "help:asterisk.configuration,name:"
+msgid "Asterisk server name."
+msgstr "Nom del servidor Asterisk."
+
+msgctxt "help:asterisk.configuration,national_format_allowed:"
+msgid ""
+"Do we allow to use click2dial on phone numbers written in national format, "
+"e.g. 01 41 98 12 42, or only in the international format, e.g. +34 1 41 98 "
+"12 42 ?"
+msgstr ""
+"Com s'usen els números de telèfon click2dial, en format nacional, per "
+"exemple, 01 41 98 12 42, o bé només en format internacional, per exemple,  "
+"+34 1 41 98 12 42 ?"
+
+msgctxt "help:asterisk.configuration,national_prefix:"
+msgid ""
+"Prefix for national phone calls (don't include the 'out prefix'). For "
+"example, in France, the phone numbers looks like '01 41 98 12 42': the "
+"National prefix is '0'."
+msgstr ""
+"Prefix per trucades nacionals (no incloure el \"prefix extern\"). Per "
+"exemple, a França, el número seria '01 41 98 12 42': el codi nacional és "
+"'0'."
+
+msgctxt "help:asterisk.configuration,out_prefix:"
+msgid ""
+"Prefix to dial to place outgoing calls. If you don't use a prefix to place "
+"outgoing calls, leave empty."
+msgstr ""
+"Prefix del marcador per trucades sortints. Si no utilitza aquest tipus de "
+"trucades, deixar-ho buit."
+
+msgctxt "help:asterisk.configuration,password:"
+msgid ""
+"Password that Asterisk will use to communicate with the Asterisk Manager "
+"Interface. Refer to /etc/asterisk/manager.conf on your Asterisk server."
+msgstr ""
+"Contrasenya d'Asterisk que es comunicarà amb la interfície de gestió "
+"d'Asterisk. Cal actualitzar també a /etc/asterisk/manager.conf del servidor "
+"Asterisk."
+
+msgctxt "help:asterisk.configuration,port:"
+msgid ""
+"TCP port on which the Asterisk Manager Interface listens. Defined in "
+"/etc/asterisk/manager.conf on Asterisk."
+msgstr ""
+"Port TCP que es comunicarà amb la interfície de gestió d'Asterisk. Cal "
+"actualitzar també a /etc/asterisk/manager.conf del servidor Asterisk."
+
+msgctxt "help:asterisk.configuration,wait_time:"
+msgid ""
+"Amount of time (in seconds) Asterisk will try to reach the user's phone "
+"before hanging up."
+msgstr ""
+"Total de temps (en segons) que Asterisk intentarà comunicar-se a l'usuari "
+"abans de penjar."
+
+msgctxt "help:res.user,asterisk_chan_type:"
+msgid ""
+"Asterisk channel type, as used in the Asterisk dialplan. If the user has a "
+"regular IP phone, the channel type is 'SIP'."
+msgstr ""
+"Tipus de canal Asterisk que s'usa pel pla del marcat. Si l'usuari disposa un"
+" telèfon IP regular, el tipus de canal és 'SIP'."
+
+msgctxt "help:res.user,asterisk_server:"
+msgid "Asterisk server on which the user's phone is connected."
+msgstr "Servidor Asterisk on el usuari es connectarà."
+
+msgctxt "help:res.user,callerid:"
+msgid "Caller ID used for the calls initiated by this user."
+msgstr "ID llamada que se usa per les trucades inicials en aquest usuari."
+
+msgctxt "help:res.user,internal_number:"
+msgid ""
+"User's internal phone number. You can deffine more than one separetd by coma"
+" ','. It try to send the call to each number until you pick up one of "
+"defined phone or arrive the end."
+msgstr ""
+"Número de telèfon intern. Es pot definir més d'un número separats amb la "
+"coma \",\". Intentarà enviar cada trucada per cada número mentres no es "
+"despengi o finalitzi."
+
+msgctxt "model:asterisk.configuration,name:"
+msgid "Asterisk Configuration"
+msgstr "Configuració Asterisk"
+
+msgctxt "model:asterisk.configuration.company,name:"
+msgid "Asterisk Configuration Company"
+msgstr "Configuració Empresa Asterisk"
+
+msgctxt "model:ir.action,name:act_asterisk_configuration_form"
+msgid "Server"
+msgstr "Servidor"
+
+msgctxt "model:ir.ui.menu,name:menu_asterisk"
+msgid "Asterisk"
+msgstr "Asterisk"
+
+msgctxt "model:ir.ui.menu,name:menu_asterisk_configuration"
+msgid "Asterisk Configuration"
+msgstr "Configuració Asterisk"
+
+msgctxt "model:res.group,name:group_asterisk"
+msgid "Asterisk Administration"
+msgstr "Administració Asterisk"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid ""
+msgstr ""
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "DAHDI"
+msgstr "DAHDI"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "H323"
+msgstr "H323"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "IAX2"
+msgstr "IAX2"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "MGCP"
+msgstr "MGCP"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "SIP"
+msgstr "SIP"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "Skinny"
+msgstr "Skinny"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "Zap"
+msgstr "Zap"
+
+msgctxt "selection:res.user,asterisk_chan_type:"
+msgid "mISDN"
+msgstr "mISDN"
+
+msgctxt "view:asterisk.configuration:"
+msgid "AMI"
+msgstr "AMI"
+
+msgctxt "view:asterisk.configuration:"
+msgid "Asterisk"
+msgstr "Asterisk"
+
+msgctxt "view:asterisk.configuration:"
+msgid "Prefix"
+msgstr "Prefix"
+
+msgctxt "view:res.user:"
+msgid "Asterisk"
+msgstr "Asterisk"
