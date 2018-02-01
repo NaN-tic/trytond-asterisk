@@ -4,10 +4,11 @@
 from trytond.pool import PoolMeta
 
 __all__ = ['Party']
-__metaclass__ = PoolMeta
+
 
 class Party:
     __name__ = 'party.party'
+    __metaclass__ = PoolMeta
 
     @property
     def display_name(self):

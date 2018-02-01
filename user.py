@@ -5,11 +5,12 @@ from trytond.model import fields
 from trytond.pool import Pool, PoolMeta
 
 __all__ = ['User']
-__metaclass__ = PoolMeta
 
 
 class User():
     __name__ = "res.user"
+    __metaclass__ = PoolMeta
+
     internal_number = fields.Char('Internal number',
         help="User's internal phone number. You can deffine more than one "
             "separetd by coma ','. It try to send the call to each number "

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- This file is part asterisk module for Tryton.
 The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
-<form string="Asterisk">
+<form>
     <group id="main_connection" colspan="4" col="6">
         <label name="name"/>
         <field name="name"/>
