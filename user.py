@@ -30,8 +30,8 @@ class User():
             help="Asterisk channel type, as used in the Asterisk dialplan. "
                 "If the user has a regular IP phone, the channel type is "
                 "'SIP'.")
-    asterisk_server = fields.Function(fields.Many2One('asterisk.configuration',
-            'Asterisk server',
+    asterisk_server = fields.Function(fields.Many2One(
+            'asterisk.configuration.company', 'Asterisk server',
             help="Asterisk server on which the user's phone is connected."),
             getter='get_asterisk_server')
 
