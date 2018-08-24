@@ -235,8 +235,6 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
     @staticmethod
     def unaccent(text):
-        if isinstance(text, str):
-            text = unicode(text, 'utf-8')
         return unicodedata.normalize('NFKD', text).encode('ASCII',
             'ignore')
 

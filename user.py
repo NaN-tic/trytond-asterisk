@@ -7,9 +7,8 @@ from trytond.pool import Pool, PoolMeta
 __all__ = ['User']
 
 
-class User():
+class User(metaclass=PoolMeta):
     __name__ = "res.user"
-    __metaclass__ = PoolMeta
 
     internal_number = fields.Char('Internal number',
         help="User's internal phone number. You can deffine more than one "
