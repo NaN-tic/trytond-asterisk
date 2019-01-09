@@ -8,6 +8,8 @@ import logging
 import socket
 import unicodedata
 import time
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['AsteriskConfiguration', 'AsteriskConfigurationCompany']
 
@@ -103,7 +105,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     value = getattr(conf, field_name)
                     res[field_name] = {conf_id: value}
         else:
-            cls.raise_user_error('not_company')
+            raise UserError('asterisk.not_company')
         return res
 
     @classmethod
@@ -130,10 +132,10 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
         prefix_to_check = getattr(self, prefix)
         if not prefix_to_check:
             if not can_be_empty:
-                self.raise_user_error(prefix)
+                raise UserError(gettext(prefix))
         else:
             if not prefix_to_check.isdigit():
-                self.raise_user_error(prefix)
+                raise UserError(gettext(prefix))
 
     def _only_digits_out_prefix(self):
         return self._only_digits('out_prefix', True)
@@ -149,15 +151,15 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
     def _check_wait_time(self):
         if self.wait_time < 1 or self.wait_time > 120:
-            self.raise_user_error('wait_time')
+            raise UserError(gettext('asterisk.wait_time'))
 
     def _check_extension_priority(self):
         if self.extension_priority < 1:
-            self.raise_user_error('extension_priority')
+            raise UserError(gettext('asterisk.extension_priority'))
 
     def _check_port(self):
         if int(self.port) > 65535 or self.port < 1:
-            self.raise_user_error('port')
+            raise UserError(gettext('asterisk.port'))
 
     def validate(cls, records):
         for record in records:
@@ -168,46 +170,6 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
             record._check_wait_time()
             record._check_extension_priority()
             record._check_port()
-
-    @classmethod
-    def __setup__(cls):
-        super(AsteriskConfiguration, cls).__setup__()
-        cls._error_messages.update({
-                'not_company': "You have not got the default company configured.",
-                'out_prefix': "Use only digits for the 'Out prefix' or leave "
-                    "it empty.",
-                'country_prefix': "Use only digits for the 'Country prefix'.",
-                'national_prefix': "Use only digits for the 'National prefix' "
-                    "or leave it empty.",
-                'international_prefix': "Use only digits for 'International "
-                    "prefix'.",
-                'wait_time': "You should enter a 'Wait time' value between 1 "
-                    "and 120 seconds.",
-                'extension_priority': "The 'Extension priority' must be a "
-                    "positive value.",
-                'port': 'TCP ports range from 1 to 65535.',
-                'error': 'Error',
-                'invalid_phone': 'Invalid phone number',
-                'invalid_international_format': "The phone number is not "
-                    "written in a valid international format. Example of valid "
-                    "international format: +33 1 41 98 12 42.",
-                'invalid_national_format': "The phone number is not written "
-                    "in a valid national format.",
-                'invalid_format': "The phone number is not written in a valid "
-                    "format.",
-                'no_phone_number': "There is no phone number.",
-                'no_asterisk_configuration': "Not available Asterisk Server "
-                    "configured for the current user.",
-                'no_channel_type': "There isn't a channel type configured for "
-                    "the current user",
-                'no_internal_phone': "There isn't a internal phone number "
-                    "configured for the current user",
-                'cant_resolve_dns': "Can't resolve the DNS of the Asterisk "
-                    "server:",
-                'connection_failed': "The connection from Tryton to the "
-                    "Asterisk server has failed. Please check the configuration "
-                    "on Tryton and Asterisk.",
-                })
 
     @staticmethod
     def default_port():
@@ -252,8 +214,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
         # Check if empty
         if not tmp_number:
-            cls.raise_user_error(error='invalid_phone',
-                error_description='invalid_format')
+            raise UserError(gettext('asterisk.invalid_phone'),
+                gettext('asterisk.invalid_format'))
 
         # First, we remove all stupid characters and spaces
         for i in [' ', '.', '(', ')', '[', ']', '-', '/']:
@@ -275,8 +237,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
             # At this stage, 'tmp_number' should only contain digits
             if not tmp_number.isdigit():
-                cls.raise_user_error(error='invalid_phone',
-                    error_description='invalid_format_msg')
+                raise UserError(gettext('asterisk.invalid_phone'),
+                    gettext('asterisk.invalid_format_msg'))
 
             logger.debug('Country prefix = ' + country_prefix)
             if country_prefix == tmp_number[0:len(country_prefix)]:
@@ -297,13 +259,13 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
         elif ast_server.national_format_allowed:
             # No treatment required
             if not tmp_number.isdigit():
-                cls.raise_user_error(error='invalid_phone',
-                    error_description='invalid_national_format')
+                raise UserError(gettext('asterisk.invalid_phone'),
+                    gettext('asterisk.invalid_national_format'))
 
         # National format, disallowed
         elif not ast_server.national_format_allowed:
-            cls.raise_user_error(error='invalid_phone',
-                error_description='invalid_international_format')
+            raise UserError(gettext('asterisk.invalid_phone'),
+                gettext('asterisk.invalid_international_format'))
         # Add 'out prefix' to all numbers
         tmp_number = out_prefix + tmp_number
         logger.debug('Out prefix = %s - Number to be sent to Asterisk = %s' %
@@ -325,25 +287,25 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
 
         # Check if the number to dial is not empty
         if not tryton_number:
-            cls.raise_user_error(error='error',
-                error_description='no_phone_number')
+            raise UserError(gettext('asterisk.error'),
+                gettext('asterisk.no_phone_number'))
 
         # We check if the user has an Asterisk server configured
         if not user.asterisk_server:
-            cls.raise_user_error(error='error',
-                error_description='no_asterisk_configuration')
+            raise UserError(gettext('asterisk.error'),
+                gettext('asterisk.no_asterisk_configuration'))
         else:
             ast_server = user.asterisk_server
 
         # We check if the current user has a chan type
         if not user.asterisk_chan_type:
-            cls.raise_user_error(error='error',
-                error_description='no_channel_type')
+            raise UserError(gettext('asterisk.error'),
+                gettext('asterisk.no_channel_type'))
 
         # We check if the current user has an internal number
         if not user.internal_number:
-            cls.raise_user_error(error='error',
-                error_description='no_internal_phone')
+            raise UserError(gettext('asterisk.error'),
+                gettext('asterisk.no_internal_phone'))
         internal_numbers = user.internal_number.replace(" ", "").split(",")
 
         # The user should also have a CallerID, but in Spain that will
@@ -369,8 +331,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
         except:
             logger.error("Can't resolve the DNS of the Asterisk server : %s" %
                 str(ast_server.ip_address))
-            cls.raise_user_error(error='error',
-                error_description='cant_resolve_dns')
+            raise UserError(gettext('asterisk.error'),
+                gettext('asterisk.cant_resolve_dns'))
         for result in res:
             af, socktype, proto, _, sockaddr = result
             for internal_number in internal_numbers:
@@ -413,8 +375,8 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                 except:
                     logger.debug("Asterisk Click2dial failed: unable to "
                         "connect to Asterisk server")
-                    cls.raise_user_error(error='error',
-                        error_description='connection_failed')
+                    raise UserError(gettext('asterisk.error'),
+                        gettext('asterisk.connection_failed'))
 
 
 class AsteriskConfigurationCompany(ModelSQL, ModelView):

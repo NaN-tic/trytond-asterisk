@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data group="1">
+      <record model="ir.message" id="not_company">
+          <field name="text">You have not got the default company configured.</field>
+      </record>
+      <record model="ir.message" id="out_prefix">
+          <field name="text">Use only digits for the 'Out prefix' or leave it empty.</field>
+      </record>
+      <record model="ir.message" id="country_prefix">
+          <field name="text">Use only digits for the 'Country prefix'.</field>
+      </record>
+      <record model="ir.message" id="national_prefix">
+          <field name="text">Use only digits for the 'National prefix' or leave it empty.</field>
+      </record>
+      <record model="ir.message" id="international_prefix">
+          <field name="text">Use only digits for 'International prefix'.</field>
+      </record>
+      <record model="ir.message" id="wait_time">
+          <field name="text">You should enter a 'Wait time' value between 1 and 120 seconds.</field>
+      </record>
+      <record model="ir.message" id="extension_priority">
+          <field name="text">The 'Extension priority' must be a positive value.</field>
+      </record>
+      <record model="ir.message" id="port">
+          <field name="text">TCP ports range from 1 to 65535.</field>
+      </record>
+      <record model="ir.message" id="error">
+          <field name="text">Error</field>
+      </record>
+      <record model="ir.message" id="invalid_phone">
+          <field name="text">Invalid phone number</field>
+      </record>
+      <record model="ir.message" id="invalid_international_format">
+          <field name="text">The phone number is not written in a valid international format. Example of valid international format: +33 1 41 98 12 42.</field>
+      </record>
+      <record model="ir.message" id="invalid_national_format">
+          <field name="text">The phone number is not written in a valid national format</field>
+      </record>
+      <record model="ir.message" id="invalid_format">
+          <field name="text">The phone number is not written in a valid format.</field>
+      </record>
+      <record model="ir.message" id="no_phone_number">
+          <field name="text">There is no phone number.</field>
+      </record>
+      <record model="ir.message" id="no_asterisk_configuration">
+          <field name="text">Not available Asterisk Server configured for the current user.</field>
+      </record>
+      <record model="ir.message" id="no_channel_type">
+          <field name="text">There isn't a channel type configured for the current user</field>
+      </record>
+      <record model="ir.message" id="no_internal_phone">
+          <field name="text">There isn't a internal phone number configured for the current user</field>
+      </record>
+      <record model="ir.message" id="cant_resolve_dns">
+          <field name="text">Can't resolve the DNS of the Asterisk server:</field>
+      </record>
+      <record model="ir.message" id="connection_failed">
+          <field name="text">The connection from Tryton to the "Asterisk server has failed. Please check the configuration on Tryton and Asterisk.</field>
+      </record>
+</data>
+</tryton>
