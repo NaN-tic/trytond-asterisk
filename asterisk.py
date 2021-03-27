@@ -344,7 +344,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     sock.send('Username: %s\r\n' % str(ast_server.login))
                     sock.send('Secret: %s\r\n\r\n' % str(ast_server.password))
                     time.sleep(1)
-                    response_login = sock.recv(1024)
+                    sock.recv(1024)
                     sock.send('Action: originate\r\n')
                     sock.send('Channel: %s/%s\r\n' % (
                             str(user.asterisk_chan_type),
@@ -362,7 +362,7 @@ class AsteriskConfiguration(ModelSingleton, ModelSQL, ModelView):
                     time.sleep(1)
                     response_originate = sock.recv(1024)
                     sock.send('Action: Logoff\r\n\r\n')
-                    response_logoff = sock.recv(1024)
+                    sock.recv(1024)
                     sock.close()
                     if "Success" in response_originate:
                         logger.info("Asterisk Click2Dial from %s to %s "
